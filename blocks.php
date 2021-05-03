@@ -4,13 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Add this loader.
-add_action( 'underpin/before_setup', function ( $class ) {
-	if ( 'Underpin\Underpin' === $class ) {
+add_action( 'underpin/before_setup', function ( $instance ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'Blocks.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'Block.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'Block_Instance.php' );
-		Underpin\underpin()->loaders()->add( 'blocks', [
+		$instance->loaders()->add( 'blocks', [
 			'registry' => 'Underpin_Blocks\Loaders\Blocks',
 		] );
-	}
 } );
