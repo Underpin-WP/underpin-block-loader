@@ -1,6 +1,6 @@
 {
   "name": "underpin/block-loader",
-  "description": "Cron Job Loader for Underpin",
+  "description": "Block Loader for Underpin",
   "type": "library",
   "license": "GPL 2.0",
   "authors": [
@@ -15,7 +15,7 @@
   },
   "autoload": {
     "files": [
-      "cron-jobs.php"
+      "blocks.php"
     ]
   }
 }
