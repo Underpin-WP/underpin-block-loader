@@ -10,8 +10,6 @@
 namespace Underpin_Blocks\Abstracts;
 
 use Underpin\Traits\Feature_Extension;
-use Underpin_Scripts\Abstracts\Script;
-use Underpin_Styles\Abstracts\Style;
 use function Underpin\underpin;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,26 +45,6 @@ abstract class Block {
 	public $args = [];
 
 	/**
-	 * The script that should be registered alongside this block, if any.
-	 * This expects to be the key for a registered script.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string|bool|Script Class name, or declaration. False if no script is used.
-	 */
-	public $script = false;
-
-	/**
-	 * The style that should be registered alongside this block, if any.
-	 * This expects to be the name of a Style class that can be instantiated.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string|bool|Style Class name, or declaration. False if no style is used.
-	 */
-	public $style = false;
-
-	/**
 	 * Block constructor.
 	 */
 	public function __construct() {
@@ -86,38 +64,7 @@ abstract class Block {
 	 */
 	public function do_actions() {
 		add_action( 'init', [ $this, 'register' ] );
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_styles_and_scripts' ] );
 	}
-
-	/**
-	 * Prepares the script. Generally used to localize last-minute params without overriding the enqueue method.
-	 *
-	 * @since 1.0.0
-	 */
-	public function prepare_script() {
-		$script = underpin()->scripts()->get( $this->script );
-		$script->set_param( 'nonce', wp_create_nonce( 'wp_rest' ) );
-		$script->set_param( 'rest_url', get_rest_url() );
-	}
-
-	/**
-	 * Enqueues admin styles and scripts.
-	 *
-	 * @since 1.0.0
-	 */
-	public function enqueue_styles_and_scripts() {
-		if ( ! is_wp_error( underpin()->scripts()->get( $this->script ) ) ) {
-			$this->prepare_script();
-			underpin()->scripts()->get( $this->script )->enqueue();
-		}
-
-		$style = underpin()->styles()->get( $this->style );
-
-		if ( ! is_wp_error( $style ) ) {
-			$style->enqueue();
-		}
-	}
-
 
 	/**
 	 * Registers the block type.
