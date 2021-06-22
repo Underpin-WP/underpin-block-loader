@@ -36,8 +36,6 @@ underpin()->blocks()->add( 'test', [
 	'description' => 'Description for block.',
 	'type'        => 'underpin/test-block', // See register_block_type
 	'args'        => [],                    // See register_block_type
-	'script'      => 'test-script',         // Use script key
-	'style'       => 'test-style',          // Use style key
 ] );
 
 ```
