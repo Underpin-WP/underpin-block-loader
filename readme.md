@@ -6,7 +6,7 @@ Loader That assists with adding blocks to a WordPress website.
 
 ### Using Composer
 
-`composer require underpin/loaders/block-loader`
+`composer require underpin/block-loader`
 
 ### Manually
 
