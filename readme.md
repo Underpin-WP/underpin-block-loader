@@ -34,8 +34,8 @@ underpin()->scripts()->add( 'test-script', [/*...*/] );
 underpin()->blocks()->add( 'test', [
 	'name'        => 'Test Block',
 	'description' => 'Description for block.',
-	'type'        => 'underpin/test-block', // See register_block_type
-	'args'        => [],                    // See register_block_type
+	'type'        => underpin()->dir() . 'block.json', // Can be the block ID or a link to a block.json file. See register_block_type
+	'args'        => [],                               // Optional. See register_block_type
 ] );
 
 ```
