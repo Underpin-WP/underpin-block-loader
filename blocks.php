@@ -13,7 +13,7 @@ Underpin::attach( 'setup', new \Underpin\Factories\Observer( 'blocks', [
 		require_once( plugin_dir_path( __FILE__ ) . 'lib/abstracts/Block.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'lib/factories/Block_Instance.php' );
 		$plugin->loaders()->add( 'blocks', [
-			'registry' => 'Underpin_Blocks\Loaders\Blocks',
+			'class' => 'Underpin_Blocks\Loaders\Blocks',
 		] );
 	},
 ] ) );
