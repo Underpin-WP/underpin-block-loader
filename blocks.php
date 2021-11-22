@@ -1,14 +1,19 @@
 <?php
+
+use Underpin\Abstracts\Underpin;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 // Add this loader.
-add_action( 'underpin/before_setup', function ( $file, $class ) {
+Underpin::attach( 'setup', new \Underpin\Factories\Observer( 'blocks', [
+	'update' => function ( Underpin $plugin ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'lib/loaders/Blocks.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'lib/abstracts/Block.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'lib/factories/Block_Instance.php' );
-		Underpin\underpin()->get( $file, $class )->loaders()->add( 'blocks', [
+		$plugin->loaders()->add( 'blocks', [
 			'registry' => 'Underpin_Blocks\Loaders\Blocks',
 		] );
-}, 10, 2 );
+	},
+] ) );
