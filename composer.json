@@ -10,12 +10,14 @@
     }
   ],
   "require": {
+    "underpin/underpin": "^2.0",
     "underpin/script-loader": "^1.1",
     "underpin/style-loader": "^1.0"
   },
   "autoload": {
+    "psr-4": {"Underpin\\Blocks\\":  "lib/"},
     "files": [
-      "blocks.php"
+      "bootstrap.php"
     ]
   }
 }

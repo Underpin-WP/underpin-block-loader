@@ -7,11 +7,11 @@
  */
 
 
-namespace Underpin_Blocks\Factories;
+namespace Underpin\Blocks\Factories;
 
 
 use Underpin\Traits\Instance_Setter;
-use Underpin_Blocks\Abstracts\Block;
+use Underpin\Blocks\Abstracts\Block;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

@@ -7,10 +7,10 @@
  */
 
 
-namespace Underpin_Blocks\Abstracts;
+namespace Underpin\Blocks\Abstracts;
 
 use Underpin\Traits\Feature_Extension;
-use function Underpin\underpin;
+use Underpin\Loaders\Logger;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -50,7 +50,7 @@ abstract class Block {
 	public function __construct() {
 
 		if ( false === $this->type ) {
-			underpin()->logger()->log(
+			Logger::log(
 				'error',
 				'invalid_block_type',
 				'The provided block does not appear to have a type set',
@@ -74,14 +74,14 @@ abstract class Block {
 	public function register() {
 		$registered = register_block_type( $this->type, $this->args );
 		if ( false === $registered ) {
-			underpin()->logger()->log(
+			Logger::log(
 				'error',
 				'block_not_registered',
 				'The provided block failed to register. Register block type provides a __doing_it_wrong warning explaining more.',
 				[ 'ref' => $this->type, 'expects' => 'string' ]
 			);
 		} else {
-			underpin()->logger()->log(
+			Logger::log(
 				'notice',
 				'block_registered',
 				'The provided block was registered successfully.',
