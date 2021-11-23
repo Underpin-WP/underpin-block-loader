@@ -7,12 +7,13 @@
  */
 
 
-namespace Underpin_Blocks\Loaders;
+namespace Underpin\Blocks\Loaders;
 
 use Underpin\Abstracts\Registries\Object_Registry;
-use Underpin_Blocks\Abstracts\Block;
+use Underpin\Blocks\Abstracts\Block;
 use WP_Error;
-use function Underpin\underpin;
+use function Underpin\Batch_Tasks\batch_task_handler;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,9 +31,9 @@ class Blocks extends Object_Registry {
 	/**
 	 * @inheritDoc
 	 */
-	protected $abstraction_class = 'Underpin_Blocks\Abstracts\Block';
+	protected $abstraction_class = 'Underpin\Blocks\Abstracts\Block';
 
-	protected $default_factory = 'Underpin_Blocks\Factories\Block_Instance';
+	protected $default_factory = 'Underpin\Blocks\Factories\Block_Instance';
 
 	/**
 	 * @inheritDoc
@@ -53,7 +54,7 @@ class Blocks extends Object_Registry {
 	 * @since 1.0.0
 	 */
 	public function prepare_script() {
-		$script = underpin()->scripts()->get( $this->script );
+		$script = batch_task_handler()->scripts()->get( $this->script );
 		$script->set_param( 'nonce', wp_create_nonce( 'wp_rest' ) );
 		$script->set_param( 'rest_url', get_rest_url() );
 	}
@@ -64,12 +65,12 @@ class Blocks extends Object_Registry {
 	 * @since 1.0.0
 	 */
 	public function enqueue_styles_and_scripts() {
-		if ( ! is_wp_error( underpin()->scripts()->get( $this->script ) ) ) {
+		if ( ! is_wp_error( batch_task_handler()->scripts()->get( $this->script ) ) ) {
 			$this->prepare_script();
-			underpin()->scripts()->get( $this->script )->enqueue();
+			batch_task_handler()->scripts()->get( $this->script )->enqueue();
 		}
 
-		$style = underpin()->styles()->get( $this->style );
+		$style = batch_task_handler()->styles()->get( $this->style );
 
 		if ( ! is_wp_error( $style ) ) {
 			$style->enqueue();
